@@ -1,14 +1,15 @@
 #!/bin/bash
 export DISPLAY=:0
 
-# Çözünürlüğü ve ekran performansını optimize et
-Xvfb :0 -screen 0 1366x768x24 -ac +extension GLX +render &
+# 1. Sanal ekranı başlat
+Xvfb :0 -screen 0 1366x768x24 &
 sleep 2
 
+# 2. XFCE masaüstünü çalıştır
 startxfce4 &
 
-# VNC sunucusunu maksimum performans ve sıkıştırma ile başlat
-x11vnc -display :0 -nopw -listen localhost -xkb -forever -shared -q &
+# 3. VNC sunucusunu devreye al
+x11vnc -display :0 -nopw -listen localhost -xkb -forever &
 
-# Railway portuna yönlendir
-websockify --web=/usr/share/novnc/ $PORT localhost:5900
+# 4. noVNC web dosyalarını doğru dizinden Railway portuna tıkır tıkır bağla
+websockify --web=/usr/share/novnc $PORT localhost:5900
