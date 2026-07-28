@@ -2,9 +2,8 @@ FROM debian:bullseye-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Gerekli hafif grafik ve ses altyapısını kur
 RUN apt-get update && apt-get install -y \
-    xvfb x11vnc wget curl unzip \
+    xvfb x11vnc novnc websockify \
     xfce4 xfce4-terminal \
     && rm -rf /var/lib/apt/lists/*
 
